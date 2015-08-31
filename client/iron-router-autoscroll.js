@@ -38,7 +38,9 @@ var scrollToTop = function () {
       if (backToPosition) {
         position = backToPosition;
         backToPosition = null;
-      } else if ($(hash).length) {
+        // Appcache package alters routes into hashes like `#!route` which is not valid jquery
+        // selector so the code crashed the app. So additional check for exclamation mark was added.
+      } else if (hash[1] !== '!' && $(hash).length) {
         position = $(hash).offset().top;
       }
       else {
