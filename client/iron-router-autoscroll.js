@@ -30,16 +30,17 @@ var scrollToTop = function () {
   if (self.ready()) {
     // defer until after the DOM update so that the position can be correct
     Tracker.afterFlush(function () {
-      var hash = window.location.hash;
+      var hash = window.location.hash.substring(1);
       if(hash.indexOf('maintainScroll=1') > -1) return;
 
       var position;
+      var hashElement = $('a[name='+hash+']');
 
       if (backToPosition) {
         position = backToPosition;
         backToPosition = null;
-      } else if ($(hash).length) {
-        position = $(hash).offset().top;
+      } else if (hashElement.length) {
+        position = hashElement.offset().top;
       }
       else {
         position = 0;
